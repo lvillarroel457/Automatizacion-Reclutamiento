@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ candidate.full_name }} - Formatted CV</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cv_style.css') }}">
+</head>
+<body>
+    <div class="cv-container">
+        <h1>{{ candidate.full_name }}</h1>
+
+        <div class="contact-info cv-section">
+            <p><strong>Contact Information:</strong></p>
+            <p>Emails: {% if candidate.contact_information.emails %}{{ candidate.contact_information.emails|join(', ') }}{% else %}N/A{% endif %}</p>
+            <p>Phones: {% if candidate.contact_information.phones %}{{ candidate.contact_information.phones|join(', ') }}{% else %}N/A{% endif %}</p>
+            <p>Addresses: {% if candidate.contact_information.addresses %}{{ candidate.contact_information.addresses|join(', ') }}{% else %}N/A{% endif %}</p>
+            <p>LinkedIn Profiles: {% if candidate.contact_information.linkedins %}{{ candidate.contact_information.linkedins|join(', ') }}{% else %}N/A{% endif %}</p>
+            <p>Websites: {% if candidate.contact_information.websites %}{{ candidate.contact_information.websites|join(', ') }}{% else %}N/A{% endif %}</p>
+        </div>
+
+        <p class="objective cv-section"><strong>Objective:</strong> {% if candidate.objective %}{{ candidate.objective }}{% else %}N/A{% endif %}</p>
+
+        <p class="skills cv-section"><strong>Skills:</strong> {% if candidate.skills %}{{ candidate.skills|join(', ') }}{% else %}N/A{% endif %}</p>
+
+        <div class="experience cv-section">
+            <p><strong>Experience:</strong></p>
+            <ul>
+                {% if candidate.experience %}
+                    {% for experience_item in candidate.experience %}
+                        <li>{{ experience_item }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>N/A</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="education cv-section">
+            <p><strong>Education:</strong></p>
+            <ul>
+                {% if candidate.education %}
+                    {% for education_item in candidate.education %}
+                        <li>{{ education_item }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>N/A</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="certifications cv-section">
+            <p><strong>Certifications:</strong></p>
+            <ul>
+                {% if candidate.certifications %}
+                    {% for certification_item in candidate.certifications %}
+                        <li>{{ certification_item }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>N/A</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <p class="languages cv-section"><strong>Languages:</strong> {% if candidate.languages %}{{ candidate.languages|join(', ') }}{% else %}N/A{% endif %}</p>
+
+        <div class="references cv-section">
+            <p><strong>References:</strong></p>
+            <ul>
+                {% if candidate.references %}
+                    {% for reference_item in candidate.references %}
+                        <li>{{ reference_item }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>N/A</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <p class="description cv-section"><strong>Description:</strong> {% if candidate.description %}{{ candidate.description }}{% else %}N/A{% endif %}</p>
+
+        <p class="nationality cv-section"><strong>Nationality:</strong> {% if candidate.nationality %}{{ candidate.nationality }}{% else %}N/A{% endif %}</p>
+
+        <p class="date-of-birth cv-section"><strong>Date of Birth:</strong> {% if candidate.date_of_birth %}{{ candidate.date_of_birth }}{% else %}N/A{% endif %}</p>
+
+        <p class="hobbies cv-section"><strong>Hobbies:</strong> {% if candidate.hobbies %}{{ candidate.hobbies|join(', ') }}{% else %}N/A{% endif %}</p>
+
+        <p class="volunteer-work cv-section"><strong>Volunteer Work:</strong> {% if candidate.volunteer_work %}{{ candidate.volunteer_work }}{% else %}N/A{% endif %}</p>
+
+        <div class="publications cv-section">
+            <p><strong>Publications:</strong></p>
+            <ul>
+                {% if candidate.publications %}
+                    {% for publication_item in candidate.publications %}
+                        <li>{{ publication_item }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>N/A</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="awards cv-section">
+            <p><strong>Awards:</strong></p>
+            <ul>
+                {% if candidate.awards %}
+                    {% for award_item in candidate.awards %}
+                        <li>{{ award_item }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>N/A</li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <p class="affiliations cv-section"><strong>Affiliations:</strong> {% if candidate.affiliations %}{{ candidate.affiliations|join(', ') }}{% else %}N/A{% endif %}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job matching tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>CV Standardization</h1>
+        <form action="/standardize_cv" method="post" enctype="multipart/form-data" id="form_standardize">
+            <label for="candidates_contents">Select CV files to standardize:</label>
+            <div class="drag-drop" id="drag_drop_standardize" data-target="selected_files_standardize">
+                <input type="file" id="candidates_contents" name="candidates_contents" multiple required>
+                <div class="drag-drop-text"><p>Drag and drop files here or click to select</p></div>
+            </div>
+            <div class="selected-files" id="selected_files_standardize"></div>
+            <button type="submit">Standardize CVs</button>
+        </form>
+
+        <br>
+
+        <h1>Best N matches report</h1>
+        <form action="/best_n" method="post" enctype="multipart/form-data" id="form_best_n">
+            <label for="candidates_contents">Select CV files:</label>
+            <div class="drag-drop" id="drag_drop_best_n" data-target="selected_files_best_n">
+                <input type="file" id="candidates_contents" name="candidates_contents" multiple required>
+                <div class="drag-drop-text"><p>Drag and drop files here or click to select</p></div>
+            </div>
+            <div class="selected-files" id="selected_files_best_n"></div>
+            <label for="job_post_contents">Select job post file:</label>
+            <div class="drag-drop" id="drag_drop_job_post" data-target="selected_files_job_post">
+                <input type="file" id="job_post_contents" name="job_post_contents" required>
+                <div class="drag-drop-text"><p>Drag and drop files here or click to select</p></div>
+            </div>
+            <div class="selected-files" id="selected_files_job_post"></div>
+            <button type="submit">Find Best Matches</button>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code for drag and drop functionality
+        $('.drag-drop').on('dragover', function (event) {
+            event.preventDefault();
+            $(this).addClass('dragging');
+        }).on('dragleave', function (event) {
+            $(this).removeClass('dragging');
+        }).on('drop', function (event) {
+            event.preventDefault();
+            $(this).removeClass('dragging');
+            var files = event.originalEvent.dataTransfer.files;
+            var input = $(this).find('input[type="file"]');
+            input.data('files', files);
+            displaySelectedFiles(files, $(this).data('target'));
+        });
+
+        $('.drag-drop').on('click', '.drag-drop-text', function () {
+            $(this).prev('input[type="file"]').click();
+        });
+
+        $('input[type="file"]').on('change', function () {
+            var files = this.files;
+            $(this).data('files', files);
+            displaySelectedFiles(files, $(this).closest('.drag-drop').data('target'));
+        });
+
+        function displaySelectedFiles(files, targetId) {
+            var html = '';
+            for (var i = 0; i < files.length; i++) {
+                html += '<div class="file-item">' + files[i].name + ' <button type="button" class="remove-file" data-index="' + i + '">Remove</button></div>';
+            }
+            $('#' + targetId).html(html);
+        }
+
+        $(document).on('click', '.remove-file', function (event) {
+            event.preventDefault(); // Prevent the default action
+            var index = $(this).data('index');
+            var input = $(this).closest('.selected-files').prev('.drag-drop').find('input[type="file"]');
+            var files = Array.from(input.data('files'));
+            files.splice(index, 1);
+            input.data('files', files);
+            displaySelectedFiles(files, input.closest('.drag-drop').data('target'));
+        });
+
+        // Before form submission, set the input files from the data attribute
+        $('form').on('submit', function () {
+            $(this).find('.drag-drop').each(function () {
+                var input = $(this).find('input[type="file"]');
+                var files = input.data('files');
+                var dataTransfer = new DataTransfer();
+                for (var i = 0; i < files.length; i++) {
+                    dataTransfer.items.add(files[i]);
+                }
+                input.prop('files', dataTransfer.files);
+            });
+        });
+    </script>
+</body>
+</html>

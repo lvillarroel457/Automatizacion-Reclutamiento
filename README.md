@@ -1,2 +1,2 @@
-# Automatizacion-Reclutamiento
-Este proyecto muestra como automatizar procesos de reclutamiento
+# candidate_matcher_service
+This service matches job candidates based on a job description provided and linkedin results.

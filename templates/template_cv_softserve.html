@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: auto;
+  }
+
+  th, td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    padding: 8px;
+    text-align: right;
+  }
+
+  .name-surname {
+    font-family: "Proxima Nova", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .position {
+    font-family: "Open Sans", sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .summary {
+    font-family: "Open Sans", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .brief-description {
+    font-family: "Open Sans", sans-serif;
+    font-size: 9px; /* Adjusted font size */
+  }
+
+  .skills {
+    font-family: "Open Sans", sans-serif;
+    font-size: 10px; /* Adjusted font size */
+  }
+
+  .border-top-left {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    text-align: left;
+  }
+
+  .fixed-width {
+    width: 150px; /* Adjust the value as needed */
+  }
+
+</style>
+</head>
+<body>
+
+<table>
+  <tr>
+    <th colspan="4" class="name-surname">{{ candidate.name }}</th>
+  </tr>
+  <tr>
+    <td colspan="4" class="position">{{ candidate.position }}</td>
+  </tr>
+</table>
+
+<br> <!-- Add some spacing between tables -->
+
+<table>
+  <tr>
+    <td class="border-top-left summary fixed-width" rowspan="2">Summary of Qualifications</td>
+    <td class="border-top-left brief-description" rowspan="2">{{ candidate.summary }}</td>
+  </tr>
+</table>
+
+<br> <!-- Add some spacing between tables -->
+
+<table>
+    <tr>
+      <td class="border-top-left summary fixed-width" rowspan="2">Skills</td>
+      <td class="border-top-left skills" rowspan="2">
+        {% for skill_category in candidate.skills %}
+        <h3>{{ skill_category.name }}</h3>
+        <ul>
+            {% for skill in skill_category.skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+      </td>
+    </tr>
+  </table>
+
+  <br> <!-- Add some spacing between tables -->
+
+
+<table>
+    
+    <tr>
+        <td class="border-top-left summary fixed-width" rowspan="2">Experience</td>
+        <td></td>
+    </tr>
+    {% for project in candidate.experience %}
+      <tr>
+        <td class="border-top-left summary fixed-width">Project Name:</td>
+        <td class="border-top-left brief-description">{{ project.name }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Project Description:</td>
+        <td class="border-top-left brief-description">{{ project.description }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Customer:</td>
+        <td class="border-top-left brief-description">{{ project.customer }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Duration:</td>
+        <td class="border-top-left brief-description">{{ project.duration }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Role:</td>
+        <td class="border-top-left brief-description">{{ project.role }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Responsibilities:</td>
+        <td class="border-top-left brief-description">{{ project.responsibilities }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Team Size:</td>
+        <td class="border-top-left brief-description">{{ project.team_size }}</td>
+      </tr>
+      <tr>
+        <td class="border-top-left summary fixed-width">Tools & Technologies:</td>
+        <td class="border-top-left brief-description">{{ project.tools_technologies }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  
+
+</body>
+</html>

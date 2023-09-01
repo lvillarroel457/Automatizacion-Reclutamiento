@@ -1,0 +1,44 @@
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 40px;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.cv-section {
+    margin-bottom: 30px;
+}
+
+.cv-section h2 {
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+li {
+    margin: 5px 0;
+}
+
+.contact-info p {
+    margin: 3px 0;
+}
+
+.contact-info strong {
+    color: #000000;
+}
+
+.description {
+    font-style: italic;
+}

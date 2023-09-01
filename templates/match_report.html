@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Best candidates</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Candidates Information</h1>
+    <table>
+        <tr>
+            <th>Candidate ID</th>
+            <th>Full Name</th>
+            <th>Emails</th>
+            <th>Phones</th>
+            <th>Address</th>
+            <th>LinkedIn</th>
+            <th>Websites</th>
+            <th>Objective</th>
+            <th>Skills</th>
+            <th>Experience</th>
+            <th>Education</th>
+            <th>Certifications</th>
+            <th>Languages</th>
+            <th>References</th>
+            <th>Description</th>
+            <th>Nationality</th>
+            <th>Date of Birth</th>
+            <th>Hobbies</th>
+            <th>Volunteer Work</th>
+            <th>Publications</th>
+            <th>Awards</th>
+            <th>Affiliations</th>
+        </tr>
+        {% for candidate in candidates %}
+        <tr>
+            <td>{{ candidate.candidate_id }}</td>
+            <td>{{ candidate.full_name }}</td>
+            <td>{{ candidate.contact_information.emails|join(', ') }}</td>
+            <td>{{ candidate.contact_information.phones|join(', ') }}</td>
+            <td>{{ candidate.contact_information.addresses|join(', ') }}</td>
+            <td>{{ candidate.contact_information.linkedins|join(', ') }}</td>
+            <td>{{ candidate.contact_information.websites|join(', ') }}</td>
+            <td>{{ candidate.objective }}</td>
+            <td>{{ candidate.skills|join(', ') }}</td>
+            <td>{{ candidate.experience|join(', ') }}</td>
+            <td>{{ candidate.education|join(', ') }}</td>
+            <td>{{ candidate.certifications|join(', ') }}</td>
+            <td>{{ candidate.languages|join(', ') }}</td>
+            <td>{{ candidate.references|join(', ') }}</td>
+            <td>{{ candidate.description }}</td>
+            <td>{{ candidate.nationality }}</td>
+            <td>{{ candidate.date_of_birth }}</td>
+            <td>{{ candidate.hobbies|join(', ') }}</td>
+            <td>{{ candidate.volunteer_work }}</td>
+            <td>{{ candidate.publications|join(', ') }}</td>
+            <td>{{ candidate.awards|join(', ') }}</td>
+            <td>{{ candidate.affiliations|join(', ') }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 40px;
+    line-height: 1.6;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1 {
+    color: #007BFF;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+form {
+    margin-bottom: 30px;
+}
+
+.drag-drop {
+    border: 2px dashed #007BFF;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.drag-drop.dragging {
+    background-color: #f0f8ff;
+}
+
+.drag-drop input[type="file"] {
+    display: none;
+}
+
+.drag-drop-text p {
+    margin: 0;
+}
+
+form button {
+    display: block;
+    margin: 0 auto;
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+.selected-files {
+    margin-bottom: 10px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #f0f8ff;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.remove-file {
+    border: none;
+    background-color: #ff4d4d;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.remove-file:hover {
+    background-color: #cc0000;
+}
