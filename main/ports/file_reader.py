@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-class TextParser(ABC):
+class FileReader(ABC):
 
     @abstractmethod
-    def parse(source):
+    def read(source_file: str):
         pass

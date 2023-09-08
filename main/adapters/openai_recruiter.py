@@ -1,6 +1,5 @@
-from main.ports.job_matcher import Recruiter
+from main.ports.recruiter import Recruiter
 
-import json
 import os
 import openai
 
@@ -13,76 +12,13 @@ class OpenAiRecruiter(Recruiter):
         openai.api_key = os.getenv("OPENAI_API_KEY")
         self.model_selected = "gpt-3.5-turbo-0613"
 
-    def match(self, candidates, job_position_text: str):
-        user_prompt = f"Please match the following candidates with the job position: {job_position_text}. Candidates: {self._candidates_to_string(candidates)}, sort results from best match descending."
-
-        completion = openai.ChatCompletion.create(
-            model=self.model_selected,
-            messages=[{"role": "user", "content": user_prompt}],
-            functions=self._function_description_match_candidate(),
-            function_call="auto",
-        )
-
-        output = completion.choices[0].message
-        match_results = json.loads(output.function_call.arguments)
-
-        return match_results
-
-    def _candidates_to_string(self, candidates):
-        candidates_str_list = [str(candidate) for candidate in candidates]
-        return ", ".join(candidates_str_list)
-
-    def best_n_matches(self, candidates, job_position_text: str, best_n: int):
-        user_prompt = f"Please match the following candidates with the job position: {job_position_text}. Candidates: {self._candidates_to_string(candidates)}, return only the best {best_n} matching candidates."
-    
-        completion = openai.ChatCompletion.create(
-            model=self.model_selected,
-            messages=[{"role": "user", "content": user_prompt}],
-            functions=self._function_description_match_candidate(),
-            function_call="auto",
-        )
-
-        output = completion.choices[0].message
-        match_results = json.loads(output.function_call.arguments)
-
-        return match_results
-
-    def match_from_str(self, candidates, job_position_text: str):
-        user_prompt = f"Please match the following candidates with the job position: {job_position_text}. Candidates: [{', '.join(candidates)}], sort results from best match descending."
-        completion = openai.ChatCompletion.create(
-            model=self.model_selected,
-            messages=[{"role": "user", "content": user_prompt}],
-            functions=self._function_description_match_candidate(),
-            function_call="auto",
-        )
-
-        output = completion.choices[0].message
-        match_results = json.loads(output.function_call.arguments)
-
-        return match_results
-
-    def best_n_matches_from_str(self, candidates, job_position_text: str, best_n: int):
-        user_prompt = f"Please match the following candidates with the job position: {job_position_text}. Candidates: [{', '.join(candidates)}], return only the best {best_n} matching candidates."
-    
-        completion = openai.ChatCompletion.create(
-            model=self.model_selected,
-            messages=[{"role": "user", "content": user_prompt}],
-            functions=self._function_description_match_candidate(),
-            function_call="auto",
-        )
-
-        output = completion.choices[0].message
-        match_results = json.loads(output.function_call.arguments)
-
-        return match_results
-
     def parse_candidate(self, candidates_contents):
         try:
             user_prompt = f"Please parse self text: {''.join(candidates_contents)} into a json of cv. Do not add graduation year fields."
             completion = openai.ChatCompletion.create(
                 model=self.model_selected,
                 messages=[{"role": "user", "content": user_prompt}],
-                functions=self._class_cv_description_parse(),
+                functions=self._function_parse_cv(),
                 function_call="auto",
             )
 
@@ -93,178 +29,7 @@ class OpenAiRecruiter(Recruiter):
         except Exception as e:
             print(e.__dict__)
 
-    def _function_description_parse_candidate(self):
-        return [
-            {
-                "name": "parse_candidates",
-                "description": "parse candidates from a text.",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "candidates": {
-                            "type": "array",
-                            "description": "List of candidates",
-                            "items": {
-                                "type": "object",
-                                "properties": 
-                                {
-                                    "candidate_id": {
-                                        "type": "string",
-                                        "description": "The unique identifier for the candidate."
-                                    },
-                                    "full_name": {
-                                        "type": "string",
-                                        "description": "The full name of the candidate."
-                                    },
-                                    "contact_information": {
-                                        "type": "object",
-                                        "description": "The contact information of the candidate, including emails, phones, addresses, LinkedIn profiles, and websites.",
-                                        "properties": {
-                                            "emails": {"type": "array", "description": "list of emails", "items": {"type": "string"}},
-                                            "phones": {"type": "array", "description": "list of phones", "items": {"type": "string"}},
-                                            "addresses": {"type": "array", "description": "list of addresses", "items": {"type": "string"}},
-                                            "linkedins": {"type": "array", "description": "list of linkedins", "items": {"type": "string"}},
-                                            "websites": {"type": "array", "description": "list of websites", "items": {"type": "string"}}
-                                        }
-                                    },
-                                    "objective": {
-                                        "type": "string",
-                                        "description": "The career objective of the candidate."
-                                    },
-                                    "skills": {
-                                        "type": "array",
-                                        "description": "The list of skills possessed by the candidate.",
-                                        "items": {
-                                            "type": "string"
-                                        }
-                                    },
-                                    "experience": {
-                                        "type": "array",
-                                        "description": "The list of working experience of the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "experience description with years",
-                                        }
-                                    },
-                                    "education": {
-                                        "type": "array",
-                                        "description": "The educational qualifications with corresponding years of the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "detail of education with years",
-                                        }
-                                    },
-                                    "certifications": {
-                                        "type": "array",
-                                        "description": "The certifications obtained by the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "certifications with date and description",
-                                        }
-                                    },
-                                    "languages": {
-                                        "type": "array",
-                                        "description": "The languages known by the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "languages known by the candidate, if not provided infer it from the candidate text.",
-                                        }
-                                    },
-                                    "references": {
-                                        "type": "array",
-                                        "description": "The references provided by the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "references of the candidate",
-                                        }
-                                    },
-                                    "description": {
-                                        "type": "string",
-                                        "description": "A general description of the candidate."
-                                    },
-                                    "nationality": {
-                                        "type": "string",
-                                        "description": "The nationality of the candidate."
-                                    },
-                                    "date_of_birth": {
-                                        "type": "string",
-                                        "description": "The date of birth of the candidate."
-                                    },
-                                    "hobbies": {
-                                        "type": "array",
-                                        "description": "The hobbies and interests of the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "hobbies description",
-                                        }
-                                        
-                                    },
-                                    "volunteer_work": {
-                                        "type": "string",
-                                        "description": "Information about the candidate's volunteer work."
-                                    },
-                                    "publications": {
-                                        "type": "array",
-                                        "description": "Publications authored by the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "Publications description",
-                                        }
-                                    },
-                                    "awards": {
-                                        "type": "array",
-                                        "description": "Awards received by the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "award description",
-                                        }
-                                    },
-                                    "affiliations": {
-                                        "type": "array",
-                                        "description": "Professional affiliations of the candidate.",
-                                        "items": {
-                                            "type": "string",
-                                            "description": "experience with years",
-                                        }
-                                    }
-                                },
-                            },
-                        },
-                    },
-                "required": ["candidates"],
-                },
-            }
-        ]
-
-    def _function_description_match_candidate(self):
-        return [
-            {
-                "name": "match_candidate_with_job",
-                "description": "returns a list of matching id candidates.",
-                "parameters": {
-                    "type": "object",
-                    "properties": {
-                        "candidates": {
-                            "type": "array",
-                            "description": "List of candidates",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "id": {"type": "string", "description": "Candidate ID"},
-                                    "matches": {"type": "boolean", "description": "true if the candidates matches"},
-                                    "matching_reason": {"type": "string", "description": "an elaboration of why the candidate matches or not for the job position. Mention highlights and key skills"}
-                                },
-                            },
-                        },
-                    },
-                    "required": ["candidates"],
-                },
-            }
-        ]
-
-    def _class_cv_description_parse(self):
-        summary_of_qualification_tips = """Total experience in years/months This duration should be equal to total duration of the projects in the Experience section Types of applications that you have worked on (web, mobile, integration, desktop, embedded, database, business intelligence) Main technologies Methodologies (Scrum, etc) Software development life cycle (SDLC) (working with requirements, architecture, design, coding, testing, debugging, building, deploying, publishing) Impressive architecture attributes on some projects if any (high loaded, scalable, secured, available, reliable, etc.).                 Interests in IT. 
-                Personal qualities (good team player, good communication skills, love to learn new, etc)"""
+    def _function_parse_cv(self):
 
         return [
             {

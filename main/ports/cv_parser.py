@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-class CandidateParser(ABC):
+class CVParser(ABC):
 
     @abstractmethod
-    def parse(candidates_contents):
+    def parse(cv_text):
         pass
