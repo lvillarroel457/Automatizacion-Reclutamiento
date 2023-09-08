@@ -5,8 +5,8 @@ class SkillCategory:
 
     @classmethod
     def from_json(cls, json_data):
-        name = json_data['name']
-        skills = json_data['skills']
+        name = json_data.get('name', '')  # Provide a default empty string
+        skills = json_data.get('skills', [])
         return cls(name, skills)
 
     def to_json(self):
@@ -31,7 +31,16 @@ class Project:
 
     @classmethod
     def from_json(cls, json_data):
-        return cls(**json_data)
+        return cls(
+            json_data.get('name', ''),
+            json_data.get('description', ''),
+            json_data.get('customer', ''),
+            json_data.get('duration', ''),
+            json_data.get('role', ''),
+            json_data.get('responsibilities', ''),
+            json_data.get('team_size', ''),
+            json_data.get('tools_technologies', [])
+        )
 
     def to_json(self):
         return {
@@ -57,7 +66,12 @@ class Certification:
 
     @classmethod
     def from_json(cls, json_data):
-        return cls(**json_data)
+        return cls(
+            json_data.get('name', ''),
+            json_data.get('year', ''),
+            json_data.get('logo', None),  # Provide a default value
+            json_data.get('link', None)  # Provide a default value
+        )
 
     def to_json(self):
         return {
@@ -78,7 +92,11 @@ class Education:
 
     @classmethod
     def from_json(cls, json_data):
-        return cls(**json_data)
+        return cls(
+            json_data.get('degree', ''),
+            json_data.get('school_name', ''),
+            json_data.get('department', '')
+        )
 
     def to_json(self):
         return {
@@ -103,15 +121,15 @@ class CV:
 
     @classmethod
     def from_json(cls, json_data):
-        skills = [SkillCategory.from_json(skill_data) for skill_data in json_data['skills']]
-        experience = [Project.from_json(exp_data) for exp_data in json_data['experience']]
-        certifications = [Certification.from_json(cert_data) for cert_data in json_data['certifications']]
-        education = [Education.from_json(edu_data) for edu_data in json_data['education']]
+        skills = [SkillCategory.from_json(skill_data) for skill_data in json_data.get('skills', [])]
+        experience = [Project.from_json(exp_data) for exp_data in json_data.get('experience', [])]
+        certifications = [Certification.from_json(cert_data) for cert_data in json_data.get('certifications', [])]
+        education = [Education.from_json(edu_data) for edu_data in json_data.get('education', [])]
         return cls(
-            json_data['name'],
-            json_data['position'],
-            json_data['summary'],
-            json_data['summary_of_qualifications'],
+            json_data.get('name', ''),
+            json_data.get('position', ''),
+            json_data.get('summary', ''),
+            json_data.get('summary_of_qualifications', ''),
             skills,
             experience,
             certifications,
