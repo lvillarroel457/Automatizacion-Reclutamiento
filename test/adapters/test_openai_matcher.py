@@ -1,6 +1,6 @@
 import json
 import os
-from main.adapters.openai_job_matcher import OpenAiJobMatcher
+from main.adapters.openai_job_matcher import OpenAiRecruiter
 import openai
 import unittest
 
@@ -83,7 +83,7 @@ class TestOpenAiMatcher(unittest.TestCase):
     
     def test_parse_candidate(self):
         #Arrange
-        parser = OpenAiJobMatcher()
+        parser = OpenAiRecruiter()
         poorly_formatted_cv = [
             '''
             John Smith 123 Main Street, Cityville, Country Email: 
@@ -122,5 +122,5 @@ class TestOpenAiMatcher(unittest.TestCase):
                         AWS Certified Cloud Practitioner - Amazon Web Services Languages: - English (Native) - 
                         Spanish (Intermediate) References: Available upon request.
             ''']
-        candidates = parser.parse(poorly_formatted_cv)
+        candidates = parser.parse_candidate(poorly_formatted_cv)
         print(candidates)

@@ -1,10 +1,10 @@
-from main.ports.job_matcher import JobMatcher
+from main.ports.job_matcher import Recruiter
 
 import json
 import os
 import openai
 
-class OpenAiJobMatcher(JobMatcher):
+class OpenAiRecruiter(Recruiter):
 
     MATCH_ERROR_MSG = "Error matching: "
 
@@ -76,24 +76,7 @@ class OpenAiJobMatcher(JobMatcher):
 
         return match_results
 
-    def parse(self, candidates_contents):
-        try:
-            user_prompt = f"Please parse self text: {''.join(candidates_contents)} into a json of candidates"
-            completion = openai.ChatCompletion.create(
-                model=self.model_selected,
-                messages=[{"role": "user", "content": user_prompt}],
-                functions=self._function_description_parse_candidate(),
-                function_call="auto",
-            )
-
-            output = completion.choices[0].message
-            candidates = output.function_call.arguments
-
-            return candidates
-        except Exception as e:
-            print(e.__dict__)
-
-    def parse_softserve(self, candidates_contents):
+    def parse_candidate(self, candidates_contents):
         try:
             user_prompt = f"Please parse self text: {''.join(candidates_contents)} into a json of cv. Do not add graduation year fields."
             completion = openai.ChatCompletion.create(

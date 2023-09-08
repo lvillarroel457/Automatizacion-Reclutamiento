@@ -20,22 +20,6 @@
 
         <br>
 
-        <h1>Best N matches report</h1>
-        <form action="/best_n" method="post" enctype="multipart/form-data" id="form_best_n">
-            <label for="candidates_contents">Select CV files:</label>
-            <div class="drag-drop" id="drag_drop_best_n" data-target="selected_files_best_n">
-                <input type="file" id="candidates_contents" name="candidates_contents" multiple required>
-                <div class="drag-drop-text"><p>Drag and drop files here or click to select</p></div>
-            </div>
-            <div class="selected-files" id="selected_files_best_n"></div>
-            <label for="job_post_contents">Select job post file:</label>
-            <div class="drag-drop" id="drag_drop_job_post" data-target="selected_files_job_post">
-                <input type="file" id="job_post_contents" name="job_post_contents" required>
-                <div class="drag-drop-text"><p>Drag and drop files here or click to select</p></div>
-            </div>
-            <div class="selected-files" id="selected_files_job_post"></div>
-            <button type="submit">Find Best Matches</button>
-        </form>
     </div>
 
     <script>
