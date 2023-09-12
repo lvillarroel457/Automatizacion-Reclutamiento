@@ -7,8 +7,29 @@ A Flask application that integrates with OpenAI for automating recruitment proce
 
 - Python 3.9.7
 - OpenAI API key
+- Docker
 
 ## Setup and Installation
+
+### Installing Docker
+
+#### For Windows:
+
+1. Visit the Docker Desktop for Windows [download page](https://www.docker.com/products/docker-desktop).
+2. Click "Download from Docker Hub".
+3. On the Docker Hub page, click "Get Docker".
+4. After downloading, double-click on the installer file to run it.
+5. Follow the on-screen instructions to complete the installation.
+
+#### For Mac:
+
+1. Visit the Docker Desktop for Mac [download page](https://www.docker.com/products/docker-desktop).
+2. Click "Download from Docker Hub".
+3. On the Docker Hub page, click "Get Docker".
+4. After downloading, drag and drop the Docker.app into the Applications folder.
+5. Open the Applications folder and click on Docker.app to start it.
+
+### Application Setup
 
 1. **Clone the repository**:
    ```bash
@@ -16,23 +37,7 @@ A Flask application that integrates with OpenAI for automating recruitment proce
    cd Automatizacion-Reclutamiento
    ```
 
-2. **Set up a virtual environment** (optional, but recommended):
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install required dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Set the Python Path**:
-   ```bash
-   source set_python_path.sh
-   ```
-
-5. **Configuration**:
+2. **Configuration**:
    Create a `config.ini` file in the root directory with the following format:
 
    ```
@@ -42,26 +47,26 @@ A Flask application that integrates with OpenAI for automating recruitment proce
 
    Replace `YOUR_OPENAI_API_KEY` with your actual OpenAI API key.
 
+3. **Build the Docker Image**:
+   ```bash
+   docker build -t automatizacion-reclutamiento .
+   ```
+
 ## Running the Application
 
-1. Activate the virtual environment (if you set one up):
+1. Run the Flask application inside a Docker container:
    ```bash
-   source venv/bin/activate
+   docker run -p 3000:3000 automatizacion-reclutamiento
    ```
 
-2. Run the Flask application:
-   ```bash
-   flask run
-   ```
-
-   By default, the app will be accessible at `http://127.0.0.1:5000/`.
+   By default, the app will be accessible at `http://127.0.0.1:3000/`.
 
 ## Running Tests
 
 To run the unittests:
 
 ```bash
-python -m unittest test/test_runner.py
+docker run -it automatizacion-reclutamiento python -m unittest test/test_runner.py
 ```
 
 ## Contribution
