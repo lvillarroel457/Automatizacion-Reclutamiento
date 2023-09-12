@@ -30,7 +30,6 @@ class OpenAiRecruiter(Recruiter):
             print(e.__dict__)
 
     def _function_parse_cv(self):
-
         return [
             {
                 "name": "parse_candidates",

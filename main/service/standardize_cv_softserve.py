@@ -9,14 +9,14 @@ import json
 
 class StandardizeCvSoftServeService:
 
-    def __init__(self, recruiter: Recruiter, text_parser: FileReader, cv_formatter: CVFormatter):
+    def __init__(self, recruiter: Recruiter, file_reader: FileReader, cv_formatter: CVFormatter):
         self._recruiter = recruiter
-        self._text_parser = text_parser
+        self._file_reader = file_reader
         self._cv_formatter = cv_formatter
 
     def execute(self, request: dict):
         #read raw cv document content into a string
-        raw_cv_str = self._text_parser.read(request["raw_cv_file"])
+        raw_cv_str = self._file_reader.read(request["raw_cv_file"])
 
         #ask the recruiter to create a cv json from the raw cv string
         parsed_json_str = self._recruiter.parse_candidate(raw_cv_str)
