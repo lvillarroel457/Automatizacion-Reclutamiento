@@ -9,26 +9,41 @@ class DOCXCVFormatter(CVFormatter):
     def format(self, cv: CV, output_file: str):
         doc = Document()
         
-        # Name
-        name_para = doc.add_paragraph()
-        run = name_para.add_run(cv.name)
+        # Add candidate name
+        p = doc.add_paragraph()
+        run = p.add_run(cv.name)
         run.bold = True
         run.font.size = Pt(14)
-        name_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        
-        # Position
-        position_para = doc.add_paragraph()
-        run = position_para.add_run(cv.position)
+        run.font.name = 'Proxima Nova'
+        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+        # Add candidate position
+        p = doc.add_paragraph()
+        run = p.add_run(cv.position)
         run.bold = True
         run.font.size = Pt(10)
-        position_para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        
-        # Summary
-        summary_para = doc.add_paragraph()
-        run = summary_para.add_run('Summary of Qualifications')
-        run.bold = True
-        summary_para.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        doc.add_paragraph(cv.summary).alignment = WD_ALIGN_PARAGRAPH.LEFT
+        run.font.name = 'Open Sans'
+        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+        # Add Summary
+        table = doc.add_table(rows=1, cols=2)
+        hdr_cells = table.rows[0].cells
+
+        # Format "Summary of Qualifications" cell
+        hdr_run_0 = hdr_cells[0].paragraphs[0].add_run('Summary of Qualifications')
+        hdr_run_0.font.size = Pt(12)
+        hdr_run_0.font.bold = True
+        hdr_run_0.font.name = 'Open Sans'
+        hdr_cells[0].width = Pt(150)
+        hdr_cells[0].text_alignment = WD_ALIGN_PARAGRAPH.LEFT
+        hdr_cells[0].paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+
+        # Format the summary text cell
+        hdr_run_1 = hdr_cells[1].paragraphs[0].add_run(cv.summary)
+        hdr_run_1.font.size = Pt(9)
+        hdr_run_1.font.name = 'Open Sans'
+        hdr_cells[1].text_alignment = WD_ALIGN_PARAGRAPH.LEFT
+        hdr_cells[1].paragraphs[0].paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
         # Skills
         skills_para = doc.add_paragraph()
