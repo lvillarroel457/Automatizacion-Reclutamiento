@@ -38,11 +38,10 @@ A Flask application that integrates with OpenAI for automating recruitment proce
    ```
 
 2. **Configuration**:
-   Create a `config.ini` file in the root directory with the following format:
+   Create a `.env` file in the root directory with the following format:
 
    ```
-   [OPENAI]
-   API_KEY = YOUR_OPENAI_API_KEY
+   OPENAI_API_KEY = YOUR_OPENAI_API_KEY
    ```
 
    Replace `YOUR_OPENAI_API_KEY` with your actual OpenAI API key.
@@ -56,10 +55,10 @@ A Flask application that integrates with OpenAI for automating recruitment proce
 
 1. Run the Flask application inside a Docker container:
    ```bash
-   docker run -p 3000:3000 automatizacion-reclutamiento
+   docker run -p 5000:5000 automatizacion-reclutamiento
    ```
 
-   By default, the app will be accessible at `http://127.0.0.1:3000/`.
+   By default, the app will be accessible at `http://127.0.0.1:5000/`.
 
 ## Running Tests
 

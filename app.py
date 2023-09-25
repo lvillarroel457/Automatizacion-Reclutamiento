@@ -1,16 +1,17 @@
 from flask import Flask, jsonify, render_template, request
 from main.adapters.cv_docx_formatter import DOCXCVFormatter
 from main.adapters.openai_recruiter import OpenAiRecruiter
-from main.adapters.file_readers import DocxFileParser
+from main.adapters.file_readers import AllFileParser #DocxFileParser
 from main.service.standardize_cv_softserve import StandardizeCvSoftServeService
 import concurrent.futures
 import os
 from flask import send_from_directory
 
+
 app = Flask(__name__)
 
 recruiter = OpenAiRecruiter()
-text_parser = DocxFileParser()
+text_parser = AllFileParser() #DocxFileParser()
 candidate_parser = OpenAiRecruiter()
 formatter = DOCXCVFormatter()
 
@@ -43,4 +44,4 @@ def download_file(filename):
     return send_from_directory(current_directory, filename, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

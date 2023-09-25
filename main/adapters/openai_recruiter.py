@@ -1,7 +1,10 @@
 from main.ports.recruiter import Recruiter
-
 import os
 import openai
+from dotenv import load_dotenv, find_dotenv
+
+
+
 
 class OpenAiRecruiter(Recruiter):
 
@@ -9,7 +12,8 @@ class OpenAiRecruiter(Recruiter):
 
     def __init__(self):
         super().__init__()
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        _ = load_dotenv(find_dotenv())
+        openai.api_key=os.getenv("OPENAI_API_KEY")
         self.model_selected = "gpt-3.5-turbo-0613"
 
     def parse_candidate(self, candidates_contents):
