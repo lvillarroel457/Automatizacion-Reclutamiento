@@ -23,6 +23,7 @@ urllib3==2.0.4
 Werkzeug==2.3.7
 yarl==1.9.2
 zipp==3.16.2
-pdfquery==0.4.3
 six==1.16.0
 python-dotenv
+PyPDF2
+docx2txt

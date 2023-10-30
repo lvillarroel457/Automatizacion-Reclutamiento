@@ -24,6 +24,7 @@ class OpenAiRecruiter(Recruiter):
                 messages=[{"role": "user", "content": user_prompt}],
                 functions=self._function_parse_cv(),
                 function_call="auto",
+                temperature=0
             )
 
             output = completion.choices[0].message

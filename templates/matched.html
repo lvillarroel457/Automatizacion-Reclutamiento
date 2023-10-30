@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Match</title>
+</head>
+<body>
+    <h1>Matched</h1>
+    <ul>
+        {% for output_file in output_files %}
+            <li><a href="{{ url_for('download_file', filename=output_file) }}">{{ output_file }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
