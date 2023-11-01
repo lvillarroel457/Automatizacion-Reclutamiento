@@ -36,7 +36,8 @@ def match():
 @app.route('/matched',methods=['POST'])
 def matched():
     uploaded_text = request.form['descripcion']
-    parsed_role=role.parse_role(uploaded_text)
+
+    parsed_role = role.parse_role(uploaded_text)
 
 
     # retrieve list of raw source cv files
@@ -46,9 +47,9 @@ def matched():
     #Process
     service = MatchCandidatesSoftServeService(text_parser, matcher, match_formatter)
     output_file = service.execute(candidates_files, parsed_role)
-    output_files=[output_file]
+    output_files = [output_file]
 
-    return render_template('matched.html', output_files=output_files)
+    return render_template('matched.html', output_files=output_files,role=parsed_role)
 
 
 @app.route('/standarize')

@@ -26,4 +26,5 @@ zipp==3.16.2
 six==1.16.0
 python-dotenv
 PyPDF2
+pycryptodome
 docx2txt

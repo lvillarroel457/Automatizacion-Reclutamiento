@@ -14,11 +14,21 @@ class DOCXMatchFormatter(MatchFormatter):
 # Iterate through the dictionary and add each key-value pair as a line in the paragraph
         for i,c in enumerate(MatchList):
 
+            if i==0:
+                p = doc.add_paragraph()
+                line = f"Informe Match para el cargo {c['Data']['Cargo']}"
+                run = p.add_run(line)
+                run.bold = True
+                run.font.size = Pt(20)
+                run.font.name = 'Open Sans'
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER              
+
             for key, value in c.items():
                 
-                if key=="Nombre":
+                if key=="Data":
+
                     p = doc.add_paragraph()
-                    line = f"{key}: {value}"
+                    line = f"Nombre : {value['Nombre']}"
                     run = p.add_run(line)
                     run.bold = True
                     run.font.size = Pt(18)
@@ -53,6 +63,15 @@ class DOCXMatchFormatter(MatchFormatter):
                     run.font.name = 'Open Sans'
                     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
+
+
+            #p = doc.add_paragraph()
+            #line = f"Borrador correo : {c['Data']['Borrador']}"
+            #run = p.add_run(line)
+            #run.bold = False
+            #run.font.size = Pt(8)
+            #run.font.name = 'Open Sans'
+            #p.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
 
 

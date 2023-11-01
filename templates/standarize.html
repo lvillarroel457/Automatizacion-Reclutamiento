@@ -7,15 +7,15 @@
 </head>
 <body>
     <div class="container">
-        <h1>CV Standardization</h1>
+        <h1>Estandarización CVs</h1>
         <form action="/standardize_cv" method="post" enctype="multipart/form-data" id="form_standardize">
-            <label for="candidates_contents">Select CV files to standardize:</label>
+            <label for="candidates_contents">Seleccione CVs para estandarizar:</label>
             <div class="drag-drop" id="drag_drop_standardize" data-target="selected_files_standardize">
                 <input type="file" id="candidates_contents" name="candidates_contents" multiple required>
-                <div class="drag-drop-text"><p>Drag and drop files here or click to select</p></div>
+                <div class="drag-drop-text"><p>Haga click para seleccionar archivos</p></div>
             </div>
             <div class="selected-files" id="selected_files_standardize"></div>
-            <button type="submit">Standardize CVs</button>
+            <button type="submit">Estandarizar</button>
         </form>
 
         <br>
