@@ -11,9 +11,11 @@
         {% endfor %}
     </ul>
 
-    <p>
-    {{ role }}   
-    </p>    
+
+    {% for r in role %}
+    <p> {{ r }} : {{role[r]}} </p>
+    <p> <br /> </p>
+    {% endfor %}
 
 </body>
 </html>
