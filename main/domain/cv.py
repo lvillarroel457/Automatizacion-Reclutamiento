@@ -85,28 +85,31 @@ class Certification:
         return f"Certification(name={self.name}, year={self.year}, link={self.link}, ...)"
 
 class Education:
-    def __init__(self, degree, school_name, department):
+    def __init__(self, degree, school_name, department, year):
         self.degree = degree
         self.school_name = school_name
         self.department = department
+        self.year = year
 
     @classmethod
     def from_json(cls, json_data):
         return cls(
             json_data.get('degree', ''),
             json_data.get('school_name', ''),
-            json_data.get('department', '')
+            json_data.get('department', ''),
+            json_data.get('year', '')
         )
 
     def to_json(self):
         return {
             'degree': self.degree,
             'school_name': self.school_name,
-            'department': self.department
+            'department': self.department,
+            'year': self.year
         }
 
     def __str__(self):
-        return f"Education(degree={self.degree}, school_name={self.school_name}, ...)"
+        return f"Education(degree={self.degree}, school_name={self.school_name}, year={self.year}, ...)"
 
 class CV:
     def __init__(self, name, position, summary, summary_of_qualifications, skills, experience, certifications, education):

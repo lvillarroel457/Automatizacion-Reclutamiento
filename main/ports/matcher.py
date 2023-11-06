@@ -12,3 +12,6 @@ class MatchFormatter(ABC):
     @abstractmethod
     def format_match(MatchList, output_file: str):
         pass
+
+    def format_matchtpl(MatchList, output_file: str):
+        pass    

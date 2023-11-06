@@ -9,5 +9,9 @@ class CVFormatter(ABC):
         pass
 
     @abstractmethod
+    def formattpl(cv: CV, output_file: str):
+        pass    
+
+    @abstractmethod
     def get_extension():
         pass

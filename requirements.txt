@@ -28,3 +28,4 @@ python-dotenv
 PyPDF2
 pycryptodome
 docx2txt
+docxtpl

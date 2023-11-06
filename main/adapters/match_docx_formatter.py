@@ -2,6 +2,7 @@ from main.ports.matcher import MatchFormatter
 from docx import Document
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docxtpl import DocxTemplate
 
 class DOCXMatchFormatter(MatchFormatter):
 
@@ -78,4 +79,14 @@ class DOCXMatchFormatter(MatchFormatter):
 
         # Save to the specified output file
         doc.save(output_file)
+
+
+    def format_matchtpl(self, MatchList, output_file: str):
+        n=len(MatchList)
+        doc = DocxTemplate('Match_Format.docx')
+        context = {'cargo' : MatchList[0]['Data']['Cargo'], 'candidatos' : MatchList, 'total': n }
+        doc.render(context)
+        doc.save(output_file)
+
+
 

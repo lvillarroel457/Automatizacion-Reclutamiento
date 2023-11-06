@@ -30,6 +30,6 @@ class StandardizeCvSoftServeService:
         file_name = str(uuid4()) + extension
 
         #creates output file
-        self._cv_formatter.format(cv, file_name)
+        self._cv_formatter.formattpl(cv, file_name)
 
         return file_name

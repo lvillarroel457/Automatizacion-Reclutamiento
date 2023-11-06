@@ -9,6 +9,7 @@ from main.service.standardize_cv_softserve import StandardizeCvSoftServeService
 from main.service.match_candidates_softserve import MatchCandidatesSoftServeService
 import concurrent.futures
 import os
+import ast
 from flask import send_from_directory
 
 
@@ -39,6 +40,7 @@ def matched():
 
     parsed_role = role.parse_role(uploaded_text)
 
+    role_dict = ast.literal_eval(parsed_role)
 
     # retrieve list of raw source cv files
 
@@ -49,7 +51,7 @@ def matched():
     output_file = service.execute(candidates_files, parsed_role)
     output_files = [output_file]
 
-    return render_template('matched.html', output_files=output_files,role=parsed_role)
+    return render_template('matched.html', output_files=output_files, role=role_dict)
 
 
 @app.route('/standarize')

@@ -105,7 +105,8 @@ class OpenAiRecruiter(Recruiter):
                                             "properties": {
                                                 "degree": {"type": "string", "description": "Degree obtained with the corresponding year."},
                                                 "school_name": {"type": "string", "description": "Name of the school."},
-                                                "department": {"type": "string", "description": "Department of education."}
+                                                "department": {"type": "string", "description": "Department of education."},
+                                                "year": {"type": "string", "description": "Year of the certification."},
                                             }
                                         }
                                     }

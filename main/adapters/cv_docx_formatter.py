@@ -3,6 +3,7 @@ from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from main.domain.cv import CV
 from main.ports.cv_formatter import CVFormatter
+from docxtpl import DocxTemplate
 
 class DOCXCVFormatter(CVFormatter):
 
@@ -81,6 +82,12 @@ class DOCXCVFormatter(CVFormatter):
             doc.add_paragraph(', '.join(project.tools_technologies))
             
         # Save to the specified output file
+        doc.save(output_file)
+
+    def formattpl(self, cv: CV, output_file: str): 
+        doc = DocxTemplate('CV_Format.docx')
+        context = {'Nombre' : cv.name, 'Summary' : cv.summary, 'skills' : cv.skills, 'experience' : cv.experience, 'certifications' : cv.certifications, 'education' : cv.education }
+        doc.render(context)
         doc.save(output_file)
 
     def get_extension(self):

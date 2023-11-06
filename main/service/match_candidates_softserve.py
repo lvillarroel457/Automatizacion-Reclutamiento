@@ -40,6 +40,6 @@ class MatchCandidatesSoftServeService:
         file_name = str(uuid4()) + extension
 
         #creates output file
-        self.match_formatter.format_match(M,file_name)
+        self.match_formatter.format_matchtpl(M,file_name)
 
         return file_name
