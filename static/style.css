@@ -4,6 +4,7 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 40px;
     line-height: 1.6;
+    background: linear-gradient(to right, #12016d, #642bbe);
 }
 
 .container {
@@ -17,10 +18,15 @@ h1 {
     text-align: center;
     margin-bottom: 20px;
     font-weight: 500;
+    font-size: 46px;
 }
 
 form {
     margin-bottom: 30px;
+}
+
+p {
+    font-size: 18px;
 }
 
 .drag-drop {
@@ -48,10 +54,10 @@ form button {
     margin: 0 auto;
     background-color: #007BFF;
     color: #fff;
-    padding: 10px 20px;
+    padding: 15px 30px;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 22px;
     border-radius: 5px;
 }
 

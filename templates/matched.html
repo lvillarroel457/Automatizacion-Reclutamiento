@@ -1,7 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Match</title>
+    <meta charset="UTF-8">
+    <title>Match</title>   
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            text-align: left;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        li {
+        color: white; /* Set the text color of li items to blue (adjust as needed) */
+        margin-top: 5px; /* Optional: Add some margin between list items */
+        }
+        
+        li a {
+        text-decoration: underline;    
+        color: white; /* Set link color (adjust as needed) */
+        }
+
+        button {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Matched</h1>
@@ -11,7 +38,8 @@
         {% endfor %}
     </ul>
 
-
+    <h2>Los requisitos para el cargo obtenidos de la descripción entregada fueron los siguientes:</h2>
+    <p> <br /> </p>
     {% for r in role %}
     <p> {{ r }} : {{role[r]}} </p>
     <p> <br /> </p>
