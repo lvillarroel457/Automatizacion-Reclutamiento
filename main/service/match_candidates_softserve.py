@@ -2,8 +2,6 @@ from main.ports.file_reader import FileReader
 from main.ports.matcher import Matcher
 from main.ports.matcher import MatchFormatter
 from uuid import uuid4
-
-
 import ast
 import json
 
@@ -23,7 +21,7 @@ class MatchCandidatesSoftServeService:
         for cv in candidates:
             raw_cv_str = self._file_reader.read(cv)
             raw_match_str = self.matcher.match_candidate(raw_cv_str,role)
-            dict_match = ast.literal_eval(raw_match_str)
+            dict_match = json.loads(raw_match_str)
             M.append(dict_match)
 
         

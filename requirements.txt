@@ -24,8 +24,8 @@ Werkzeug==2.3.7
 yarl==1.9.2
 zipp==3.16.2
 six==1.16.0
-python-dotenv
-PyPDF2
-pycryptodome
-docx2txt
-docxtpl
+python-dotenv==1.0.0
+PyPDF2==3.0.1
+pycryptodome==3.19.0
+docx2txt==0.8
+docxtpl==0.16.7

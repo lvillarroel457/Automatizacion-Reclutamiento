@@ -10,6 +10,7 @@ from main.service.match_candidates_softserve import MatchCandidatesSoftServeServ
 import concurrent.futures
 import os
 import ast
+import json
 from flask import send_from_directory
 
 
@@ -40,7 +41,7 @@ def matched():
 
     parsed_role = role.parse_role(uploaded_text)
 
-    role_dict = ast.literal_eval(parsed_role)
+    role_dict = json.loads(parsed_role)
 
     # retrieve list of raw source cv files
 

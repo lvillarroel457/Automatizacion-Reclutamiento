@@ -8,6 +8,9 @@ from docxtpl import DocxTemplate
 class DOCXCVFormatter(CVFormatter):
 
     def format(self, cv: CV, output_file: str):
+
+        ''' Crea un Documento .docx a partir de una instancia de la clase CV '''
+
         doc = Document()
         
         # Add candidate name
@@ -85,6 +88,10 @@ class DOCXCVFormatter(CVFormatter):
         doc.save(output_file)
 
     def formattpl(self, cv: CV, output_file: str): 
+
+        ''' Crea un Documento .docx según un template en formato .docx 
+        utilizando la librería docxtpl y una instancia de la clase CV '''
+
         doc = DocxTemplate('CV_Format.docx')
         context = {'Nombre' : cv.name, 'Summary' : cv.summary, 'skills' : cv.skills, 'experience' : cv.experience, 'certifications' : cv.certifications, 'education' : cv.education }
         doc.render(context)

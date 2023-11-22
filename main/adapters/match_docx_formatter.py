@@ -8,6 +8,8 @@ class DOCXMatchFormatter(MatchFormatter):
 
     def format_match(self, MatchList, output_file: str):
 
+        ''' Crea un documento .docx con los resultados del match. '''
+
         doc = Document()
 
         n=len(MatchList)
@@ -64,24 +66,13 @@ class DOCXMatchFormatter(MatchFormatter):
                     run.font.name = 'Open Sans'
                     p.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
-
-
-            #p = doc.add_paragraph()
-            #line = f"Borrador correo : {c['Data']['Borrador']}"
-            #run = p.add_run(line)
-            #run.bold = False
-            #run.font.size = Pt(8)
-            #run.font.name = 'Open Sans'
-            #p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-
-
-
-
-        # Save to the specified output file
         doc.save(output_file)
 
 
     def format_matchtpl(self, MatchList, output_file: str):
+
+        ''' Crea un documento .docx con los resultados del match según un template con la librería docxtpl. '''
+
         n=len(MatchList)
         doc = DocxTemplate('Match_Format.docx')
         context = {'cargo' : MatchList[0]['Data']['Cargo'], 'candidatos' : MatchList, 'total': n }

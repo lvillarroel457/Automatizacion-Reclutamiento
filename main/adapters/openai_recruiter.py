@@ -8,37 +8,35 @@ from dotenv import load_dotenv, find_dotenv
 
 class OpenAiRecruiter(Recruiter):
 
-    MATCH_ERROR_MSG = "Error matching: "
 
     def __init__(self):
-        super().__init__()
         _ = load_dotenv(find_dotenv())
         openai.api_key=os.getenv("OPENAI_API_KEY")
-        self.model_selected = "gpt-3.5-turbo-0613"
+        self.model_selected = "gpt-4-0613"  
 
     def parse_candidate(self, candidates_contents):
-        try:
-            user_prompt = f"Please parse self text: {''.join(candidates_contents)} into a json of cv. Do not add graduation year fields."
-            completion = openai.ChatCompletion.create(
-                model=self.model_selected,
-                messages=[{"role": "user", "content": user_prompt}],
-                functions=self._function_parse_cv(),
-                function_call="auto",
-                temperature=0
-            )
 
-            output = completion.choices[0].message
-            candidates = output.function_call.arguments
+        user_prompt = f"Please parse self text: {''.join(candidates_contents)} into a json of cv using the function. Remove all slashes (/,\). Don't return Unicode"
+        completion = openai.ChatCompletion.create(
+            model=self.model_selected,
+            messages=[{"role": "system", "content": "You are an asisstant and you must use the function you are given. Don't return Unicode"},
+            {"role": "user", "content": user_prompt}],
+            functions=self._function_parse_cv(),
+            function_call={"name": "parse_candidates"},
+            temperature=0
+        )
 
-            return candidates
-        except Exception as e:
-            print(e.__dict__)
+        output = completion.choices[0].message
+        candidates = output.function_call.arguments
+
+        return candidates
+
 
     def _function_parse_cv(self):
         return [
             {
                 "name": "parse_candidates",
-                "description": "parse candidates from a text.",
+                "description": "Parse candidates from a text.  Remove all slashes (/,\)",
                 "parameters": {
                     "type": "object",
                     "properties": {

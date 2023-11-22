@@ -3,7 +3,6 @@ from main.ports.recruiter import Recruiter
 from main.ports.file_reader import FileReader
 from main.ports.cv_formatter import CVFormatter
 from uuid import uuid4
-
 import json
 
 
