@@ -16,10 +16,10 @@ class OpenAiRecruiter(Recruiter):
 
     def parse_candidate(self, candidates_contents):
 
-        user_prompt = f"Please parse self text: {''.join(candidates_contents)} into a json of cv using the function. Remove all slashes (/,\). Don't return Unicode"
+        user_prompt = f"Parsea este texto: {''.join(candidates_contents)} en un json de cv en español utilizando la función proporcionada. Quita los slashes (/,\). No retornes Unicode"
         completion = openai.ChatCompletion.create(
             model=self.model_selected,
-            messages=[{"role": "system", "content": "You are an asisstant and you must use the function you are given. Don't return Unicode"},
+            messages=[{"role": "system", "content": "Eres un asistente en español y debes utilizar la función que se te proporcionó. No retornes Unicode"},
             {"role": "user", "content": user_prompt}],
             functions=self._function_parse_cv(),
             function_call={"name": "parse_candidates"},

@@ -21,7 +21,7 @@ class OpenAiRole(Role):
         completion = openai.ChatCompletion.create(
             model=self.model_selected,
             response_format={ "type": "json_object" },
-            messages=[{"role": "system", "content": "You are a helpful assistant designed to output a JSON object."}, 
+            messages=[{"role": "system", "content": "Eres un asistente dineñado para retornar un JSON object en español"}, 
             {"role": "user", "content": user_prompt}],
             temperature=0
         )
